@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="box-element">
+            <style>
+                #searchresults {
+                    display: none;
+                    max-height: 5em;
+                    overflow-y: scroll;
+                    border: 1px solid black;
+                    margin-top: 1em;
+                    margin-bottom: 1em;
+                    width: fit-content;
+                    padding-right: 3em;
+                    border-radius: 5px;
+                }
+            </style>
+            <section>
+                <input type="text" id="searchbox" oninput="search(this);">
+                <article id="searchresults">
+                    <ul>
+                        <li><a href="#">Stegosaurus</a></li>
+                        <li><a href="#">Stegosaurus</a></li>
+                        <li><a href="#">Stegosaurus</a></li>
+                        <li><a href="#">Stegosaurus</a></li>
+                        <li><a href="#">Stegosaurus</a></li>
+                        <li><a href="#">Stegosaurus</a></li>
+                        <li><a href="#">Stegosaurus</a></li>
+                        <li><a href="#">Stegosaurus</a></li>
+                        <li><a href="#">Stegosaurus</a></li>
+                    </ul>
+                </article>
+            </section>
+        </div>
+    </div>
+    
+    <script src={% static "/eshop/js/search.js" %}></script><br>
+
+    <div class="container">
+        <div class="box-element">
+            <a href="{% url "homepage" %}" class="btn btn-secondary col-3">All categories</a>
+            <a href="{% url "homepage" %}?category=Action_Figures_and_Statues" class="btn btn-secondary col-3">Action Figures and Statues</a>
+            <a href="{% url "homepage" %}?category=Board_Games" class="btn btn-secondary col-3">Board Games</a>
+            <a href="{% url "homepage" %}?category=Building_Toys" class="btn btn-secondary col-3">Building Toys</a>
+            <a href="{% url "homepage" %}?category=Outdoor_Toys" class="btn btn-secondary col-3">Outdoor Toys</a>
+            <a href="{% url "homepage" %}?category=Puzzles_and_Brain_Teasers" class="btn btn-secondary col-3">Puzzles and Brain Teasers</a>
+            <a href="{% url "homepage" %}?category=RPG_Figures" class="btn btn-secondary col-3">RPG Figures</a>
+            <a href="{% url "homepage" %}?category=Vehicles" class="btn btn-secondary col-3">Vehicles</a>
+            <a href="{% url "homepage" %}?category=Other_Toys_and_Games" class="btn btn-secondary col-3">Other Toys and Games</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+                <div class="col-lg-4">
+                    <img class="thumbnail" src="{{product.imageURL}}">
+                    <div class="box-element product">
+                        <h6><strong>{{ product.title }}</strong></h6>
+                        <p class="card-text"><strong>Released at:</strong> {{ product.release_data|date:"d.m. Y" }}</p>
+                        <!--<p class="card-text">{{ product.description }}</p> -->
+                        <a href="{% url "add_to_cart" product.pk %}" class="btn btn-outline-secondary add-btn">Add to cart</a>
+                        <a href="{% url "list_product_review" product.pk %}" class="btn btn-outline-success">View</a>
+                        <h4 style="display: inline-block; float: right"><strong>${{product.price|floatformat:2}}</strong></h4>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock content %}

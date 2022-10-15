@@ -1,0 +1,1 @@
+web: gunicorn butterfly_eshop.wsgi --log-file -
